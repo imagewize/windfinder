@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `elayne-pattern-generator` (1.0.0): thin Elayne skill ported from the Claude-side skill. It reads the theme repo before writing, scaffolds with pt-cli, applies the colour contract, lists the validation passes and covers page composites and child-theme verticals. `references/` holds the block JSON rules and the pattern spec format. `scripts/screenshot.sh` renders a pattern (default `elayne/page-homepage`) on a throwaway demo page with the cookie banner hidden, fails on promo text or a block error, takes the PNG with `html-page-review/measure.mjs`, checks it is exactly 1200x900 and deletes the page. Replaces the improvised screenshot steps that cost many commands and left a temp page behind.
+
 ## [1.21.0] - 2026-11-13
 
 ### Added

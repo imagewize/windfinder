@@ -16,6 +16,7 @@ Skills run inside your project with Vibe's tools and are invoked as slash comman
 | [`/wordpress-database`](../skills/wordpress-database/SKILL.md) | Custom tables: `dbDelta` rules, versioned upgrades, prepared `$wpdb` CRUD, migrations, uninstall cleanup. | mralaminahamed |
 | [`/wordpress-woocommerce`](../skills/wordpress-woocommerce/SKILL.md) | WooCommerce extensions: gateways, shipping, WC CRUD, HPOS, REST/Store API, cart/checkout blocks. | mralaminahamed |
 | [`/wp-update-round`](../skills/wp-update-round/SKILL.md) | WordPress update rounds: before/after screenshots, pixel diff, human approval, production deployment for plugins/themes/core. Uses wp-ops commands. | Imagewize |
+| [`/elayne-pattern-generator`](../skills/elayne-pattern-generator/SKILL.md) | Creates, ports and audits block patterns for the Elayne theme and its child themes: reads the theme repo first, scaffolds with pt-cli, follows the colour contract, runs the validation passes. `scripts/screenshot.sh` re-shoots `screenshot.png` as a clean 1200x900 render with promo-text and block-error checks. | Imagewize |
 
 ## Design & frontend
 
