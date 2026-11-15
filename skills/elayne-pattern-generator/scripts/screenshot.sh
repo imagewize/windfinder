@@ -49,7 +49,7 @@ while [ $# -gt 0 ]; do
   esac
 done
 
-wp() { (cd "$TRELLIS_DIR" && trellis vm shell --workdir "$WP_WORKDIR" -- wp "$@" --path=web/wp); }
+vmwp() { (cd "$TRELLIS_DIR" && trellis vm shell --workdir "$WP_WORKDIR" -- wp "$@" --path=web/wp); }
 
 CONTENT=$(cat <<EOF
 <!-- wp:html -->
@@ -70,16 +70,16 @@ fi
 [ -d "$TRELLIS_DIR" ] || { echo "TRELLIS_DIR not found: $TRELLIS_DIR" >&2; exit 1; }
 
 # A leftover page from an interrupted run would make the slug collide, so remove it first.
-OLD=$(wp post list --post_type=page --name="$SLUG" --post_status=any --field=ID 2>/dev/null | tr -d '\r' || true)
-[ -n "$OLD" ] && wp post delete $OLD --force >/dev/null
+OLD=$(vmwp post list --post_type=page --name="$SLUG" --post_status=any --field=ID 2>/dev/null | tr -d '\r' | grep -E '^[0-9]+( [0-9]+)*$' || true)
+[ -n "$OLD" ] && vmwp post delete $OLD --force >/dev/null
 
 B64=$(printf '%s' "$CONTENT" | base64 | tr -d '\n')
 ID=$( (cd "$TRELLIS_DIR" && trellis vm shell --workdir "$WP_WORKDIR" -- \
   bash -c "echo $B64 | base64 -d | wp post create - --post_type=page --post_status=publish --post_title=$SLUG --post_name=$SLUG --porcelain --path=web/wp") | tr -d '\r' | tail -1)
 case "$ID" in ''|*[!0-9]*) echo "could not create the temp page (got: $ID)" >&2; exit 1 ;; esac
-cleanup() { wp post delete "$ID" --force >/dev/null 2>&1 || echo "WARNING: delete page $ID ($SLUG) by hand" >&2; }
+cleanup() { vmwp post delete "$ID" --force >/dev/null 2>&1 || echo "WARNING: delete page $ID ($SLUG) by hand" >&2; }
 trap cleanup EXIT
-wp post meta update "$ID" _wp_page_template page-no-title >/dev/null
+vmwp post meta update "$ID" _wp_page_template page-no-title >/dev/null
 
 URL="$SITE_URL/$SLUG/"
 HTML=$(curl -fsS "$URL") || { echo "could not fetch $URL" >&2; exit 1; }
