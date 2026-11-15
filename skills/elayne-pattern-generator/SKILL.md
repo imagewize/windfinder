@@ -8,7 +8,7 @@ allowed-tools:
   - bash
   - grep
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   source: "github.com/imagewize/wp-vibe-toolbox skills/elayne-pattern-generator"
 ---
 
@@ -74,6 +74,36 @@ strip inline spacing the scaffold over-emits.
 5. **Images:** Unsplash, Pexels and Pixabay are for design review only. Shipped images must be CC0 or GPL-compatible,
    converted to WebP, under `patterns/images/<vertical>/`, referenced through `esc_url( get_template_directory_uri() )`,
    never hotlinked. Ask about portrait or landscape crops instead of guessing, and add credits to `readme.txt`.
+6. **Port every section of the prototype.** Do not reuse a sibling pattern (`home-industries`, `home-steps`) for a
+   section the prototype restyles: a different card, heading layout or number size means a new pattern. Read the
+   prototype's CSS for each section before deciding, and list the sections with the pattern that will carry each.
+7. **Width.** Inside the outer `alignfull` group, the `constrained` group caps every child at the content size
+   (740px). `align:wide` on that constrained group itself does nothing. Each child that should span the prototype's
+   wrap (heading, columns, grid, panel) needs its own `"align":"wide"`.
+8. **Layouts the block grid cannot express** (a 12-column bento with 4/8 and 7/5 rows, overlapping screenshots, an
+   image that bleeds out of a panel) go in a block-style CSS file on a `core/group`, with plain modifier classes on
+   the children (`home-bold-span-4`, `home-bold-stage-hero`). `home-mosaic.css` is the model. Do not approximate
+   them with nested `wp:columns`.
+9. **HTML stand-ins for screenshots** (the prototype's `.mock-*` mini pages) become `wp:image` blocks. Render the
+   stand-ins from the prototype with headless Chrome at 3x, crop each one, save as WebP under
+   `patterns/images/<set>/`, and position them with the block-style CSS. Do not swap in an unrelated photo.
+
+### Check the port against the prototype before reporting
+
+A port is not done when the validators pass; they do not look at the design. Compare it with the prototype:
+
+1. Sync the working copy to the demo (section 5).
+2. Use a test page whose content is only the pattern reference, so it renders from the theme files on every request:
+   `<!-- wp:pattern {"slug":"elayne/page-<name>"} /-->`, template `page-no-title` (the meta value has no `.html`).
+   Create it once with `wp post create --post_type=page --post_status=publish`; after that a sync is enough, with
+   no delete, re-insert or cache flush. A page that was filled by inserting the pattern in the editor holds a copy
+   of the old markup in the database, and only then must its content be replaced
+   (`wp post update <id> <file-with-the-pattern-reference>`).
+3. Serve the prototype (`python3 -m http.server <port> --bind 127.0.0.1 --directory <prototype-dir>`) and take
+   full-page screenshots of both at 1440 with `html-page-review/measure.mjs --screenshot FILE.png --full`. Cut them
+   into viewport-height slices and read prototype and port side by side, section by section. Repeat at 390 and 800.
+4. If a number does not change after an edit, check the served HTML for the new class before measuring again; do
+   not re-measure the same page in a loop. Stop the prototype server when the comparison is done.
 
 ## 4. Rules that cause the most fix cycles (check the exact wording in the rules table)
 
