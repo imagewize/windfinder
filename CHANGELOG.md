@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- `elayne-pattern-generator` (1.1.0), section 3: four more porting rules and a compare step, from the home-bold port. Port every section the prototype restyles; do not reuse a sibling pattern. Each child of the constrained group needs its own `align:wide` (the first port put it on the constrained group, so everything stayed 740px wide). Layouts the block grid cannot express go in a block-style CSS file with modifier classes. HTML stand-ins for screenshots are rendered from the prototype and shipped as `wp:image`, not replaced by photos. The new compare step uses a test page whose content is only the `wp:pattern` reference, which renders from the theme files on every request, so a sync is enough and nothing has to be deleted or re-inserted; the agent in that session re-measured a page that still held an inserted copy of the old markup and got stuck.
+
 ### Added
 
 - `elayne-pattern-generator` (1.0.0): thin Elayne skill ported from the Claude-side skill. It reads the theme repo before writing, scaffolds with pt-cli, applies the colour contract, lists the validation passes and covers page composites and child-theme verticals. `references/` holds the block JSON rules and the pattern spec format. `scripts/screenshot.sh` renders a pattern (default `elayne/page-homepage`) on a throwaway demo page with the cookie banner hidden, fails on promo text or a block error, takes the PNG with `html-page-review/measure.mjs`, checks it is exactly 1200x900 and deletes the page. Replaces the improvised screenshot steps that cost many commands and left a temp page behind.
