@@ -78,7 +78,7 @@ Using Le Chat instead? Paste [`FRONTEND-DEV.md`](prompts/frontend-dev/FRONTEND-D
 | [Vibe agents](docs/agents.md) | 9 | Role profiles for `vibe --agent NAME`, each with a spawnable subagent copy |
 | [Le Chat prompts](docs/le-chat-prompts.md) | 2 | System prompts for agents without shell access, with recorded runs |
 
-Skills by area: WordPress development (10) · Design & frontend (17) · Development workflow & quality (11) · DevOps & release (11) · SEO & content marketing (17).
+Skills by area: WordPress development (11) · Design & frontend (17) · Development workflow & quality (11) · DevOps & release (11) · SEO & content marketing (15).
 
 Why they behave the way they do: [design principles](docs/principles.md).
 
