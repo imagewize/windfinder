@@ -1,17 +1,17 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="assets/logos/wp-vibe-toolbox-dark.svg">
-  <img src="assets/logos/wp-vibe-toolbox-primary.svg" alt="WP Vibe Toolbox logo: an isometric box" width="96" height="96">
+  <source media="(prefers-color-scheme: dark)" srcset="assets/logos/windfinder-dark.svg">
+  <img src="assets/logos/windfinder-primary.svg" alt="Windfinder logo: an isometric box" width="96" height="96">
 </picture>
 
-# WP Vibe Toolbox
+# Windfinder
 
 **Build, review and maintain WordPress block themes with Mistral Vibe.**<br>
 From an HTML design to a reviewed FSE block theme, a safe update round and SEO content that ships after a second opinion.
 
-[![Latest release](https://img.shields.io/github/v/release/imagewize/wp-vibe-toolbox?label=release&color=orange)](https://github.com/imagewize/wp-vibe-toolbox/releases/latest)
-[![License: MIT](https://img.shields.io/github/license/imagewize/wp-vibe-toolbox?color=blue)](LICENSE.md)
+[![Latest release](https://img.shields.io/github/v/release/imagewize/windfinder?label=release&color=orange)](https://github.com/imagewize/windfinder/releases/latest)
+[![License: MIT](https://img.shields.io/github/license/imagewize/windfinder?color=blue)](LICENSE.md)
 [![Mistral Vibe](https://img.shields.io/badge/Mistral-Vibe-FA520F)](https://docs.mistral.ai/vibe/)
 [![Skills](https://img.shields.io/badge/skills-65-brightgreen)](docs/skills.md)
 [![Agents](https://img.shields.io/badge/agents-9-brightgreen)](docs/agents.md)
@@ -43,21 +43,21 @@ Made by a block-theme developer who uses it daily.
 
 Works best with the [Aviendha](https://github.com/imagewize/aviendha) starter theme and the [Aludra](https://github.com/imagewize/aludra) block library. See the full [workflow](docs/workflow.md) and the [architect-demo case study](docs/workflow.md#case-study-an-html-design-to-a-block-theme).
 
-![Terminal recording of vibe --agent wp-reviewer reviewing the latest commit in wp-vibe-toolbox: the agent loads the code-review skill, runs git checks and reports an OVERALL ASSESSMENT](docs/assets/vibe-agent-demo.gif)
+![Terminal recording of vibe --agent wp-reviewer reviewing the latest commit in windfinder: the agent loads the code-review skill, runs git checks and reports an OVERALL ASSESSMENT](docs/assets/vibe-agent-demo.gif)
 
 ## Quick start
 
 Point Vibe at the skills in `~/.vibe/config.toml`:
 
 ```toml
-skill_paths = ["~/code/wp-vibe-toolbox/skills"]
+skill_paths = ["~/code/windfinder/skills"]
 ```
 
 Sync the agents (re-run after `git pull`):
 
 ```bash
 mkdir -p ~/.vibe/agents
-rsync -a ~/code/wp-vibe-toolbox/agents/ ~/.vibe/agents/
+rsync -a ~/code/windfinder/agents/ ~/.vibe/agents/
 ```
 
 Then, in any WordPress project:

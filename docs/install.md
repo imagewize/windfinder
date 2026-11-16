@@ -29,7 +29,7 @@ allowlist = [
     "sed -n",
     "jq",
     "\"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" --headless=new",
-    "node /Users/you/code/wp-vibe-toolbox/skills/html-page-review/measure.mjs",
+    "node /Users/you/code/windfinder/skills/html-page-review/measure.mjs",
     "python3 -m http.server 8765 --bind 127.0.0.1",
     "wp option get",
     "wp option list",
@@ -90,7 +90,7 @@ Every `[[models]]` entry needs a `name`, a `provider` and an `alias`. An entry w
 **Pinning a model to one agent.** A profile can set its own model with `active_model = "large-4"` as its first line, so only that agent runs on it. Keep such a variant out of this repository and generate it from the base profile, because a hand-edited fork stops receiving the toolbox's changes: the instructions, the skills list and the rules that came with each release. After every `git pull`, regenerate it, then `/reload`:
 
 ```bash
-{ echo 'active_model = "large-4"'; sed 's/^display_name = "WP Frontend Builder"$/display_name = "WP Frontend Builder (Large 4)"/' ~/code/wp-vibe-toolbox/agents/wp-frontend-builder.toml; } > ~/.vibe/agents/wp-frontend-builder-large.toml
+{ echo 'active_model = "large-4"'; sed 's/^display_name = "WP Frontend Builder"$/display_name = "WP Frontend Builder (Large 4)"/' ~/code/windfinder/agents/wp-frontend-builder.toml; } > ~/.vibe/agents/wp-frontend-builder-large.toml
 ```
 
 Setting `active_model` in `~/.vibe/config.toml` instead (above) needs no copy and never goes stale.

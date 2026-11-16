@@ -2,7 +2,7 @@
 
 <!-- One sentence: what is built, with which agent, in which mode. -->
 {{SUMMARY}} Built with the `wp-frontend-builder` Vibe agent from
-[wp-vibe-toolbox](https://github.com/imagewize/wp-vibe-toolbox): first an HTML/CSS prototype
+[windfinder](https://github.com/imagewize/windfinder): first an HTML/CSS prototype
 (`index.html`), then a block theme (`theme-{{THEME_SLUG}}/`). The prompts for each run are in
 [PROMPTS.md](PROMPTS.md).
 
