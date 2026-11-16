@@ -9,7 +9,7 @@ allowed-tools:
   - grep
 metadata:
   version: "1.1.0"
-  source: "github.com/imagewize/wp-vibe-toolbox skills/elayne-pattern-generator"
+  source: "github.com/imagewize/windfinder skills/elayne-pattern-generator"
 ---
 
 # Elayne pattern workflow
@@ -19,7 +19,7 @@ rule lists. The theme repo is the source of truth; read it fresh every time. An 
 hardcoded fonts, colours and scales that drifted badly.
 
 `SKILL_DIR` below is this folder, read from `skill_paths` in `~/.vibe/config.toml`
-(for example `~/code/wp-vibe-toolbox/skills/elayne-pattern-generator`).
+(for example `~/code/windfinder/skills/elayne-pattern-generator`).
 
 ## 0. Read the source of truth first (always)
 

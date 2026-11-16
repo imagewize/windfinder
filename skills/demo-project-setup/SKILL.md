@@ -8,7 +8,7 @@ allowed-tools:
   - bash
 metadata:
   version: "1.5.1"
-  source: "github.com/imagewize/wp-vibe-toolbox skills/demo-project-setup"
+  source: "github.com/imagewize/windfinder skills/demo-project-setup"
 ---
 
 # Demo project setup
@@ -19,7 +19,7 @@ and a first commit. The build itself is not part of this skill. It ends by telli
 command and which prompt start stage 1.
 
 `SKILL_DIR` below stands for the absolute path of this skill's folder (for example
-`~/code/wp-vibe-toolbox/skills/demo-project-setup`). The templates are in `SKILL_DIR/assets/`.
+`~/code/windfinder/skills/demo-project-setup`). The templates are in `SKILL_DIR/assets/`.
 
 ## When to use
 

@@ -1,11 +1,19 @@
 # Changelog
 
-All notable changes to the wp-vibe-toolbox repository (formerly mistral-toolbox) will be documented in this file.
+All notable changes to the windfinder repository (formerly wp-vibe-toolbox, previously mistral-toolbox) will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.22.0] - 2026-11-16
+
+The repository is now `windfinder`, renamed from `wp-vibe-toolbox` (which was renamed from `mistral-toolbox` in 1.14.0).
+
+### Renamed
+
+- Repository renamed from `wp-vibe-toolbox` to `windfinder` (GitHub: `imagewize/windfinder`; local clone: `~/code/windfinder`). The old `wp-vibe-toolbox` and `mistral-toolbox` URLs redirect automatically on GitHub. Updated README, AGENTS.md, docs, agent profiles, skill `metadata.source` references, and logo filenames to match. After the directory is renamed, update `~/.vibe/config.toml` so `skill_paths` points to `~/code/windfinder/skills` and re-sync agents from `~/code/windfinder/agents`.
 
 ### Changed
 

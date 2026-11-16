@@ -8,7 +8,7 @@ allowed-tools:
   - bash
 metadata:
   version: "1.5.1"
-  source: "github.com/imagewize/wp-vibe-toolbox skills/html-page-review"
+  source: "github.com/imagewize/windfinder skills/html-page-review"
 ---
 
 # HTML Page Review
@@ -34,7 +34,7 @@ You review. You do not fix. Never edit the page under review.
 
 `/ABS/SKILL/DIR` below is this skill's folder, written as an absolute path: the `skill_paths` entry
 in `~/.vibe/config.toml` plus `/html-page-review` (for example
-`/Users/you/code/wp-vibe-toolbox/skills/html-page-review`). Read it there; never search the home
+`/Users/you/code/windfinder/skills/html-page-review`). Read it there; never search the home
 folder for `probe.html` or `measure.mjs`.
 
 `probe.html` in this skill's directory loads the page in an iframe at a given width, measures it

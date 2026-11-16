@@ -94,7 +94,7 @@ Rules:
   `github.com/sergebulaev/linkedin-skills`, MIT (© 2026 Sergey Bulaev, see the copied
   `LICENSE` in each), pinned `8f8bc4b40a2d5419b2dcf898772b85712cfbdf41`; ported and
   condensed, publishing/scraping backends removed (manual-only)
-- `assets/logos/wp-vibe-toolbox-primary.svg` and `assets/logos/wp-vibe-toolbox-dark.svg` — the
+- `assets/logos/windfinder-primary.svg` and `assets/logos/windfinder-dark.svg` — the
   `box` icon from Bootstrap Icons (`github.com/twbs/icons`, via
   `blade-ui-kit.com/blade-icons/bi-box`), MIT (© 2019-2024 The Bootstrap Authors, see
   `assets/logos/LICENSE-bootstrap-icons.txt`); used unmodified except for recoloring

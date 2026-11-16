@@ -8,7 +8,7 @@ allowed-tools:
   - bash
 metadata:
   version: "1.0.2"
-  source: "github.com/imagewize/wp-vibe-toolbox skills/theme-style-options"
+  source: "github.com/imagewize/windfinder skills/theme-style-options"
 ---
 
 # Theme style options
@@ -19,7 +19,7 @@ chosen font. Every color option is a real style variation in `styles/`, so whate
 already working theme code, and nothing is copied by hand from a mock-up.
 
 The script is `scripts/options.mjs` in this skill's folder. Below, `SKILL_DIR` stands for the absolute
-path of that folder (for example `~/code/wp-vibe-toolbox/skills/theme-style-options`). It needs Node 18+
+path of that folder (for example `~/code/windfinder/skills/theme-style-options`). It needs Node 18+
 and a Chrome or Chromium (Google Chrome, or a Playwright download in `~/Library/Caches/ms-playwright`;
 override with `CHROME_PATH`). Fonts mode also needs network access to Fontsource.
 
