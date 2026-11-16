@@ -2,7 +2,7 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/logos/windfinder-dark.svg">
-  <img src="assets/logos/windfinder-primary.svg" alt="Windfinder logo: an isometric box" width="96" height="96">
+  <img src="assets/logos/windfinder-primary.svg" alt="Windfinder logo: a windmill" width="96" height="96">
 </picture>
 
 # Windfinder

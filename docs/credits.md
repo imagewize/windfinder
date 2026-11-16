@@ -10,7 +10,7 @@ All MIT except `google-labs-code/design.md` and `aaron-he-zhu/aaron-marketing-sk
 
 ## Logo
 
-The box mark is the `box` icon from [Bootstrap Icons](https://icons.getbootstrap.com/icons/box/) (via [Blade Icons](https://blade-ui-kit.com/blade-icons/bi-box)), MIT License, © 2019-2024 The Bootstrap Authors; the license text is in [`assets/logos/LICENSE-bootstrap-icons.txt`](../assets/logos/LICENSE-bootstrap-icons.txt). It is a nod to the [Traveling box](https://wot.fandom.com/wiki/Traveling_box) from Robert Jordan's *The Wheel of Time*, in the spirit of the other Imagewize projects named after that series ([Aviendha](https://github.com/imagewize/aviendha), [Aludra](https://github.com/imagewize/aludra), [Elayne](https://github.com/imagewize/elayne), [Nynaeve](https://github.com/imagewize/nynaeve)). Light and dark variants swap automatically on GitHub.
+The windmill mark is the `windmill-f` icon from [Tabler Icons](https://tabler.io/icons/icon/windmill-f) (via [Blade Icons](https://blade-ui-kit.com/blade-icons/tabler-windmill-f)), MIT License, © 2024 Paweł Kuna; the license text is in [`assets/logos/LICENSE-tabler-icons.txt`](../assets/logos/LICENSE-tabler-icons.txt). Light and dark variants swap automatically on GitHub.
 
 ## Resources
 
