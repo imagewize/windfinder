@@ -87,6 +87,7 @@ Skills run inside your project with Vibe's tools and are invoked as slash comman
 | [`/cro`](../skills/cro/SKILL.md) | Conversion rate audit: above-the-fold, CTAs, forms, trust signals, performance — prioritized fix list. | coreyhaines31 |
 | [`/publish-hygiene`](../skills/publish-hygiene/SKILL.md) | Pre-publish hygiene: strip invisible Unicode from drafts, check images for C2PA/AI/EXIF metadata. | guillaumemeyer |
 | [`/cold-email`](../skills/cold-email/SKILL.md) | B2B cold email sequences — subject lines, hooks, multi-touch follow-ups, personalization. | coreyhaines31 |
+| [`/upwork-proposal`](../skills/upwork-proposal/SKILL.md) | Qualify an Upwork job, research the client's site, draft a proposal whose first 200 characters survive the applicant list, decide the boost, submit and log it. | Imagewize |
 | [`/linkedin-comment-queue`](../skills/linkedin-comment-queue/SKILL.md) | Manual LinkedIn soft-funnel: find posts to comment on, draft comments, decide follow/connect. | Imagewize |
 | [`/linkedin-content-planner`](../skills/linkedin-content-planner/SKILL.md) | Weekly LinkedIn plan: 2-5 posts from pillar mix + hook formulas + posting windows, a recycling slot for proven posts, daily comment targets. Manual only. | sergebulaev |
 | [`/linkedin-post-writer`](../skills/linkedin-post-writer/SKILL.md) | Draft or repurpose one LinkedIn post: goal-picked hook formula, 2026 feed heuristics, AI-tell scrub, alt text, approval card. Manual only. | sergebulaev |
