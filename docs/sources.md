@@ -47,6 +47,7 @@ MIT, Apache-2.0, CC0-1.0, BSD-2/3-Clause, Unlicense or public domain may be impo
 | `sergekostenchuk/ui-ux-agent-skill-system` | Apache-2.0 | LICENSE fetched | `ddaedd712a37d7523f0ce99f556abe68ded7a315` (main) | vendor-neutral UI/UX skill system |
 | `mustafakendiguzel/claude-code-ui-agents` | MIT | GitHub API | pin at import (main) | UI/UX agent prompts |
 | `ofershap/real-browser-mcp` | MIT | LICENSE fetched at pinned commit + GitHub API, 2026-11-09 | `173c964c3df3ea247a7b65ef519f664771709f12` (main) | real-browser agent-control skill (MCP server + Chrome extension) |
+| `sergebulaev/linkedin-skills` | MIT | LICENSE fetched at pinned commit + GitHub API, 2026-11-16 | `8f8bc4b40a2d5419b2dcf898772b85712cfbdf41` (main) | LinkedIn content planning, post writing, repurposing, hook formulas |
 
 ### Reference-only (never import)
 
@@ -116,3 +117,5 @@ One row per imported artifact; the artifact's `metadata.source` must match the r
 | 2026-11-05 | `skills/publish-hygiene/` (SKILL.md + LICENSE; rewrite and scripts removed) | `github.com/guillaumemeyer/watermarks-remover` skills/clean-user-facing-text | MIT | `5a62be6338d2812372b1da440e55c82922f97d53` | 1.0.1 |
 | 2026-11-05 | `skills/serp-check/` (original; method reference only, nothing copied) | `github.com/aaron-he-zhu/aaron-marketing-skills` serp-analysis | Apache-2.0 | `a285188d99663e2825dc79832ba898ca890f39a1` | 1.0.0 |
 | 2026-11-09 | `skills/real-browser-control/` (SKILL.md adapted + LICENSE) | `github.com/ofershap/real-browser-mcp` skills/real-browser-control | MIT | `173c964c3df3ea247a7b65ef519f664771709f12` | 1.0.0 |
+| 2026-11-16 | `skills/linkedin-content-planner/` (SKILL.md + references/ + LICENSE) | `github.com/sergebulaev/linkedin-skills` skills/linkedin-content-planner (ported, condensed; Publora/Apify backends dropped — manual only) | MIT | `8f8bc4b40a2d5419b2dcf898772b85712cfbdf41` | 1.0.0 |
+| 2026-11-16 | `skills/linkedin-post-writer/` (SKILL.md + references/ + LICENSE) | `github.com/sergebulaev/linkedin-skills` skills/linkedin-post-writer + skills/linkedin-repurposer + references/hook-formulas.md, algorithm-heuristics.md, voice-rules.md (ported, condensed; manual only) | MIT | `8f8bc4b40a2d5419b2dcf898772b85712cfbdf41` | 1.0.0 |

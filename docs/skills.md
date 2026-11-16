@@ -88,6 +88,8 @@ Skills run inside your project with Vibe's tools and are invoked as slash comman
 | [`/publish-hygiene`](../skills/publish-hygiene/SKILL.md) | Pre-publish hygiene: strip invisible Unicode from drafts, check images for C2PA/AI/EXIF metadata. | guillaumemeyer |
 | [`/cold-email`](../skills/cold-email/SKILL.md) | B2B cold email sequences — subject lines, hooks, multi-touch follow-ups, personalization. | coreyhaines31 |
 | [`/linkedin-comment-queue`](../skills/linkedin-comment-queue/SKILL.md) | Manual LinkedIn soft-funnel: find posts to comment on, draft comments, decide follow/connect. | Imagewize |
+| [`/linkedin-content-planner`](../skills/linkedin-content-planner/SKILL.md) | Weekly LinkedIn plan: 2-5 posts from pillar mix + hook formulas + posting windows, a recycling slot for proven posts, daily comment targets. Manual only. | sergebulaev |
+| [`/linkedin-post-writer`](../skills/linkedin-post-writer/SKILL.md) | Draft or repurpose one LinkedIn post: goal-picked hook formula, 2026 feed heuristics, AI-tell scrub, alt text, approval card. Manual only. | sergebulaev |
 | [`/product-marketing`](../skills/product-marketing/SKILL.md) | Product marketing context document (`.agents/product-marketing.md`) that other marketing skills reference. | coreyhaines31 |
 
 ## Content workflow
@@ -98,6 +100,7 @@ The SEO and content skills form a pipeline for blog posts, landing pages and out
 product-marketing → keyword-gap-analysis / serp-check → first-hand-proof → draft
   → seo-audit + schema + ai-seo → publish-hygiene → publish
   → cro (on the landing page) / cold-email + linkedin-comment-queue (outreach)
+  → linkedin-content-planner + linkedin-post-writer (LinkedIn content: weekly plan, drafts, recycling)
 ```
 
 Three agents split the pipeline: [`seo-content-writer`](../agents/seo-content-writer.toml) (research and drafting), [`seo-publish-reviewer`](../agents/seo-publish-reviewer.toml) (pre-publish gate) and [`outreach-marketer`](../agents/outreach-marketer.toml) (cold email and LinkedIn).
