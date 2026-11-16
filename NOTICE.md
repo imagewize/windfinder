@@ -95,9 +95,9 @@ Rules:
   `LICENSE` in each), pinned `8f8bc4b40a2d5419b2dcf898772b85712cfbdf41`; ported and
   condensed, publishing/scraping backends removed (manual-only)
 - `assets/logos/windfinder-primary.svg` and `assets/logos/windfinder-dark.svg` — the
-  `box` icon from Bootstrap Icons (`github.com/twbs/icons`, via
-  `blade-ui-kit.com/blade-icons/bi-box`), MIT (© 2019-2024 The Bootstrap Authors, see
-  `assets/logos/LICENSE-bootstrap-icons.txt`); used unmodified except for recoloring
+  `windmill-f` icon from Tabler Icons (`github.com/tabler/tabler-icons`, via
+  `blade-ui-kit.com/blade-icons/tabler-windmill-f`), MIT (© 2024 Paweł Kuna, see
+  `assets/logos/LICENSE-tabler-icons.txt`); used unmodified except for recoloring
 
 Full register with all approved sources: `docs/sources.md`. Entries are added here as
 imports land.
