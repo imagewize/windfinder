@@ -12,7 +12,7 @@ Agent profiles in [`agents/`](../agents/) are TOML files you select with `vibe -
 | [`wp-maintainer`](../agents/wp-maintainer.toml) | WordPress update rounds: screenshots, diffs, approval, deployment | wp-update-round, systematic-debugging, verification-before-completion, security-review |
 | [`seo-content-writer`](../agents/seo-content-writer.toml) | Plans and drafts SEO content: context, keyword gaps, SERP check, first-hand proof, copy, comparison pages | product-marketing, keyword-gap-analysis, serp-check, first-hand-proof, copywriting, competitors |
 | [`seo-publish-reviewer`](../agents/seo-publish-reviewer.toml) | Independent pre-publish gate: SEO audit, schema, AI-search citability, hygiene, CRO | seo-audit, schema, ai-seo, publish-hygiene, cro |
-| [`outreach-marketer`](../agents/outreach-marketer.toml) | Drafts cold email sequences and the manual LinkedIn comment queue; never sends | product-marketing, cold-email, linkedin-comment-queue |
+| [`outreach-marketer`](../agents/outreach-marketer.toml) | Drafts B2B cold email sequences and LinkedIn content (weekly plan, posts, repurposing) plus the manual comment queue; never sends | product-marketing, cold-email, linkedin-comment-queue, linkedin-content-planner, linkedin-post-writer |
 
 ```bash
 vibe --agent wp-reviewer                    # interactive review session

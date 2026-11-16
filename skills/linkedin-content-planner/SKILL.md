@@ -73,9 +73,7 @@ Guardrails:
 
 Re-running a proven post is cheaper than inventing a new one — but never verbatim:
 
-1. Pick from the performance tracker's top rows (highest impressions **at the same age**
-   as the others being compared** — reach keeps accruing for weeks, so a 3-day-old number
-   understates a post by ~2x; only compare equal ages**).
+1. Pick from the performance tracker's top rows (highest impressions **at the same age as the others being compared** — reach keeps accruing for weeks, so a 3-day-old number understates a post by ~2x; only compare equal ages).
 2. Wait at least **10-12 weeks** before re-running a post.
 3. Change the wrapper, keep the spine: new hook line, a new dated fact or number, an
    updated visual (or reuse the old one if it is still accurate).
