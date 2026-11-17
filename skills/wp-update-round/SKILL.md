@@ -4,7 +4,7 @@ description: "Use when running a WordPress update round — orchestrating before
 user-invocable: true
 license: MIT
 metadata:
-  version: "1.2.0"
+  version: "1.3.0"
   source: "github.com/imagewize/windfinder skills/wp-update-round (Imagewize, MIT)"
 ---
 
@@ -68,6 +68,8 @@ ssh user@example.com 'cd ~/public_html && wp core check-update --format=json'
 MCP equivalent: `wp_cli(site="example.com", env="production", args=["plugin","list","--update=available","--format=json"])`.
 
 Drop everything on the skip list. Flag **major version updates** (x.0.0), WooCommerce updates, page-builder updates, and anything with database migrations. These get manual review regardless of the screenshot result.
+
+**Shared host with no SSH and no WP-CLI (FTP-only).** You cannot list pending updates from the server; the wp-admin "N updates available" badge is the only live count and cannot be read headlessly. Reconcile versions by reading the files themselves: for each plugin resolved locally (`wp plugin list --fields=name,version`), download its entry file over FTP (a few KB each), parse the `Version:` header, and diff the two sides — plus `wp-includes/version.php` (core) and the active theme's `style.css`. Also check **activation parity**: a plugin active on production but inactive in the sandbox (or sandbox-only mu-plugins like a mail catcher) is invisible to local testing — record the divergence, because no local screenshot will exercise it. Update counts that differ between environments ("14 there, 13 here") are normal once licence-locked, inactive, or one-side-only plugins are named by the probe.
 
 ### Fast path — one semver-safe package, no screenshots
 
@@ -140,7 +142,7 @@ wp-ops update-snapshot http://example.test \
 
 Default viewports are desktop (1920×1080) and mobile (390×844); add `--viewports=desktop,tablet,mobile` for tablet. Each page is scrolled through and its images decoded before capture, so two runs of an unchanged page are pixel-identical. Writes PNGs and `manifest.json` (HTTP status, page size, error per shot). Exits 1 if a capture fails or a page returns 400+.
 
-Mask anything that changes on every load (rotating testimonials, "latest posts", countdowns). The Contact Form 7 CAPTCHA is masked by default (`--no-default-mask` to keep it). `--timeout` (default 60s) caps each capture.
+Mask anything that changes on every load (rotating testimonials, "latest posts", countdowns). On WooCommerce product pages the related-products block rotates on every load (`ORDER BY RAND()`) — mask `section.related.products` from the first run or expect false flags. The Contact Form 7 CAPTCHA is masked by default (`--no-default-mask` to keep it). `--timeout` (default 60s) caps each capture.
 
 ### 4. Apply updates locally
 
@@ -161,6 +163,12 @@ cd ~/code/site-sandbox
 wp plugin update plugin-name --version=X.Y.Z
 wp theme update theme-name
 ```
+
+**Licence-bound plugins (EDD/upgrade APIs).** A premium plugin's update server often refuses a sandbox domain (the package URL embeds the licensed site) — `wp plugin update` fails with "Unauthorized" even though wp-admin offers the update. Get the exact zip from the vendor account and install it, so the local round still tests the real artifact:
+```bash
+wp plugin install ~/Downloads/plugin-x.y.z.zip --force
+```
+Then record that production takes the same update through wp-admin (or the vendor's updater), where the licence is valid.
 
 For many updates, apply them in batches and run step 5 after each batch, so a change can be traced to the batch that caused it.
 
@@ -184,8 +192,18 @@ This writes `snapshots/compare-local/index.html` (with `before/`, `after/`, `dif
 - **Block of red:** Content/structure changed — investigate
 - **Size changed + widespread red:** Page got taller/shorter; the change is at the first red area from the top
 - **Scattered small red:** Animation, carousel, or lazy element not masked — add to `--mask` and re-capture both runs
+- **Same page flags on every batch, no clear cause:** prove or rule out rotation before investigating the plugins. Shoot the *unchanged* page twice, seconds apart, and compare the two runs (`update-snapshot` + `update-compare` on the pair) — a similar magnitude on identical code means the page rotates on its own (WooCommerce related products do), not that anything regressed. Mask the rotating block; if the mask arrives after the round's before-shots, re-capture the before set with the mask so every run in the round is comparable.
 
-**Important:** Screenshots only prove the page *looks* the same. They do NOT prove functionality (checkout, contact forms). Test those separately.
+**Important:** Screenshots only prove the page *looks* the same. They do NOT prove functionality (checkout, contact forms). Prove the order flow with `wp-ops checkout-check`, which walks shop > product > cart > checkout and can place a real local test order with an email oracle:
+```bash
+wp-ops checkout-check http://example.test \
+  --product=/product/test-item/ \
+  --category=/product-category/example/ \
+  --place-order \
+  --mailhog=http://localhost:8025 \
+  --cleanup --wp="wp" --wp-dir=~/code/site-sandbox
+```
+On order-form-shaped shops (no product grid on the shop page — the shop is a landing page and products live under category archives) pass `--product`/`--category` explicitly. Quote-style or configurator products usually cannot be automated; leave those for one manual pass at the review gate (step 6).
 
 ### 5b. HTTPS and mixed-content check (production, after deploy)
 
@@ -223,7 +241,7 @@ For each flagged shot, decide:
 
 Write a one-line note summarizing the review, e.g. "WooCommerce 8.6.1 → 8.7.0, Contact Form 7 6.2.4.1 → 6.2.5. All pages 0.000%."
 
-For major updates or any doubt, test functional paths manually: submit the contact form, add a product to the cart and reach checkout, run a gateway test.
+For major updates or any doubt, test functional paths manually: submit the contact form, add a product to the cart and reach checkout, run a gateway test. `checkout-check --place-order` (step 5) already proves the plain checkout flow on the sandbox; spend the manual pass on what it cannot cover — configurator/quote-style products, hosted-payment flows, and (with the client's OK after deploy) one real contact-form submission on production.
 
 **Do not continue to step 7 without the user's explicit go-ahead.**
 
@@ -261,6 +279,8 @@ ssh user@example.com 'cd ~/public_html && wp theme update theme-name'
 MCP: `wp_cli(site="example.com", env="production", args=["plugin","update","plugin-name","--version=X.Y.Z"], confirm=true)` — only after approval.
 
 Then purge the page cache named in the manifest (from the cache plugin's admin bar or its own WP-CLI command, if installed) and run `wp cache flush` for the object cache.
+
+Purging is not enough when the cache plugin also **combines or minifies CSS/JS** (WP Rocket minify, Autoptimize): it keeps serving asset files built from the *old* plugin versions after the update. Verify rather than assume — pull the live HTML, take a minified CSS URL from it, and check the response's `last-modified` is **after** the deploy time (a fresh cache key or new file size is the tell). Serving stale minified CSS against updated plugin markup produces broken UI with no error anywhere: real case, a 19-day-old cached GDPR-plugin stylesheet served against new markup made the cookie banner unreadable after an otherwise verified round.
 
 ### 9. Production verification
 
