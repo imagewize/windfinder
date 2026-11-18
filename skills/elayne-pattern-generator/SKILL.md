@@ -8,7 +8,7 @@ allowed-tools:
   - bash
   - grep
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
   source: "github.com/imagewize/windfinder skills/elayne-pattern-generator"
 ---
 
@@ -45,7 +45,9 @@ If these files cannot be read, say so and stop. Do not fall back to remembered v
   **nothing else**: no wrapper group, no PHP `include`, no spacer. The rules table says why. Sentinel always reports
   `content_mismatch` for these; that is a known limitation, not a bug.
 - **New vertical**: a child theme (`~/code/elayne-<vertical>`, `elayne-legal` is the worked example), never new vertical
-  patterns in the parent. Use the child's text domain and `get_stylesheet_directory_uri()` for vertical images.
+  patterns in the parent. Use the child's text domain and `get_stylesheet_directory_uri()` for vertical images. Write the
+  child's `AGENTS.md`, `README.md` and `CHANGELOG.md` before the first pattern — per
+  `references/child-theme-docs.md` — and record every later change in its `CHANGELOG.md`.
 - **Screenshot**: step 6.
 
 ## 2. Scaffold, never hand-write block JSON
@@ -69,7 +71,8 @@ strip inline spacing the scaffold over-emits.
    every font size to a preset, every spacing value to a spacing slug, every radius to a radius preset, every icon or
    emoji to an SVG. Flag complex CSS (absolute badges, hover effects, gradient text) that needs a block-style CSS file.
 2. Map each section to a scaffold, then customise.
-3. Prototype rem values usually come out too large in the theme scale; expect H1, body and pill sizes to drop one step.
+3. Prototype rem values usually come out too large in the theme scale; expect H1, body and pill sizes to drop one step,
+   and section paddings to drop one to two steps against the section rhythm budget in step 4.
 4. Grids of 3 or more columns are `wp:group` grids with `minimumColumnWidth`, not `wp:columns`.
 5. **Images:** Unsplash, Pexels and Pixabay are for design review only. Shipped images must be CC0 or GPL-compatible,
    converted to WebP, under `patterns/images/<vertical>/`, referenced through `esc_url( get_template_directory_uri() )`,
@@ -117,6 +120,23 @@ block-comment JSON (use `var:preset|color|slug` and single-dash class names). **
 never `secondary` or `border-*` as a text colour. No emoji. Fictional emails only. All text through `esc_html_e`,
 `esc_attr__` or `wp_kses_post( __() )` with the theme's text domain. Real UTF-8 characters, never `\uXXXX`, in PHP strings.
 
+### Section rhythm budget
+
+Spacing presets are top-heavy (`x-large` is 80px at 1440, `xxx-large` 144px) and the outer groups carry `margin: 0` with
+their own padding, so un-budgeted sections stack into 200–300px gaps — the most expensive class of review fix. The
+theme repo's `AGENTS.md` is the source of truth and wins over these numbers; when it carries no rhythm contract yet,
+propose this one there. Budget every section:
+
+- Section padding top/bottom is `large` by default (48px at 1440, 32px at 390). Use `medium` for dense sections and for
+  the side of a boundary whose other side already carries a hero-band padding.
+- Hero and full-bleed banner bands: at most `x-large` per side (80px at 1440, 48px at 390).
+- The two paddings meeting at a section boundary stay within 112px together at 1440 and 64px at 390: at most one side
+  of a boundary may be `x-large`, and never `xx-large` or `xxx-large` as section padding in new or adapted patterns.
+- One padding layer: the outer `alignfull` group pads; inner `constrained`/`wide` groups add no extra top/bottom
+  padding. Vertical flow inside a section uses the parent `blockGap`, not per-block margins.
+- Verify with a measurement (`measure.mjs` box data), not by eye: a spacing value you did not measure is "expected",
+  not a fact.
+
 ## 5. Validate (never claim a pattern passes until a validator has run)
 
 - **Pass 0**, after a WordPress or WooCommerce upgrade: `./scripts/check-pattern-blocks.sh` from the Elayne repo root.
@@ -149,4 +169,5 @@ screenshot tooling: this script is the sanctioned path.
 ## 7. Output
 
 Report in a few lines: the scaffold commands used, the files changed, the validators run with their result, and the
-decisions that need the user (image crops, licences). No narration of the exploration.
+decisions that need the user (image crops, licences). For adapted sections and composites, include the section paddings
+used and flag any boundary that exceeds the rhythm budget. No narration of the exploration.
