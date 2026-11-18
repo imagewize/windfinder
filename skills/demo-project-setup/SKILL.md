@@ -7,7 +7,7 @@ allowed-tools:
   - write_file
   - bash
 metadata:
-  version: "1.5.1"
+  version: "1.6.0"
   source: "github.com/imagewize/windfinder skills/demo-project-setup"
 ---
 
@@ -41,6 +41,11 @@ Not for changing an existing theme or for running the build stages: those are se
   images. The user downloads the photos; this skill only lists and checks them.
 - **No real client data in the toolbox.** Everything specific to the project goes into the
   project folder, never into this skill.
+- **AGENTS.md on day one.** The project `AGENTS.md` is written in step 2, filled in once and
+  updated as guardrails are learned — never reconstructed from memory after a failed run. Whatever
+  theme this demo's build later creates (an Elayne child theme, a standalone fork or a new block
+  theme) gets the theme-docs trio written at creation: `AGENTS.md`, `README.md`, `CHANGELOG.md`
+  (see `elayne-pattern-generator/references/child-theme-docs.md`).
 - **Never run anything inside the starter theme (`~/code/aviendha`) or edit the Aludra checkout.**
   Tools write logs into the folder they run in.
 - **Ask before anything outward-facing:** creating a GitHub repository and pushing.
@@ -99,6 +104,7 @@ Then write these files with `write_file`, filled from the brief:
 | File | From | Notes |
 |------|------|-------|
 | `.gitignore` | `assets/gitignore.txt` | as is |
+| `AGENTS.md` | `assets/AGENTS.template.md` | the session contract: paths, spacing budget, tooling guardrails; a session without it re-derives these by trial and error |
 | `README.md` | `assets/README.template.md` | the brief; the `ux-designer` review reads it |
 | `images/CREDITS.md` | `assets/CREDITS.template.md` | header only; one row per photo |
 | `PROMPTS.md` | `assets/PROMPTS.template.md` | see below |
@@ -118,6 +124,7 @@ It resizes every image in `images/` to at most 1600px wide in place (macOS `sips
 | Placeholder | Filled with |
 |-------------|-------------|
 | `{{NAME}}`, `{{THEME_SLUG}}`, `{{SITE}}` | the name, theme slug and Valet site name |
+| `{{THEME_MODE}}` | what `theme-{{THEME_SLUG}}/` is: `an Elayne child theme`, `a fork of ~/code/aviendha` or `a standalone block theme` |
 | `{{PROJECT_DIR}}`, `{{PROJECT_FOLDER_NAME}}` | `~/code/bakery-demo`, `bakery-demo` |
 | `{{SITE_DIR}}`, `{{SITE_DIR_ABS}}` | `~/code/lindeboom-demo` and the same path written out in full, `/Users/<user>/code/lindeboom-demo` (the second goes inside `--path=`, where `~` does not expand; no `$HOME`, the agent may not expand variables) |
 | `{{SITE_PLUGINS}}` | `, with Aludra and Contact Form 7`, or empty |
@@ -168,7 +175,7 @@ grep -n "description" ~/code/aludra/blocks/<block>/src/block.json
 Then check that no placeholder or template comment is left:
 
 ```bash
-grep -n -e "{{" -e "<!--" <project-dir>/PROMPTS.md <project-dir>/README.md <project-dir>/images/CREDITS.md
+grep -n -e "{{" -e "<!--" <project-dir>/AGENTS.md <project-dir>/PROMPTS.md <project-dir>/README.md <project-dir>/images/CREDITS.md
 ```
 
 It must print nothing.
@@ -395,6 +402,7 @@ writes alt text and picks crops from these descriptions, so a wrong one ends up 
 | File | What it is |
 |------|------------|
 | `assets/PROMPTS.template.md` | Stage plan with prompts 1–5, a status table and "why it is written this way" notes, Mode A and Mode B variants for stage 4 |
+| `assets/AGENTS.template.md` | Project `AGENTS.md`: paths, section rhythm budget, tooling guardrails, review and commit rules |
 | `assets/README.template.md` | Project README holding the brief |
 | `assets/CREDITS.template.md` | Image credits table |
 | `assets/gitignore.txt` | `.gitignore` for a theme project (node_modules, vendor, sentinel logs) |

@@ -1,13 +1,13 @@
 ---
 name: html-page-review
-description: "Review a rendered static HTML/CSS page the way a designer would: render it in headless Chrome at phone, tablet and desktop widths, measure layout faults (overflow, overlapping text, labels crossing drawings, unbalanced columns, empty sides, alignment outliers, tall sticky headers, small text and tap targets), then judge it against the brief and its own design system. Writes numbered, fixable review notes to REVIEW.md and never edits the page. Use after a page is built or changed, before the next round of change requests."
+description: "Review a rendered static HTML/CSS page the way a designer would: render it in headless Chrome at phone, tablet and desktop widths, measure layout faults (overflow, overlapping text, labels crossing drawings, unbalanced columns, empty sides, alignment outliers, tall sticky headers, section padding sums against the project's rhythm budget, small text and tap targets), then judge it against the brief and its own design system. Writes numbered, fixable review notes to REVIEW.md and never edits the page. Use after a page is built or changed, before the next round of change requests."
 user-invocable: true
 allowed-tools:
   - read_file
   - write_file
   - bash
 metadata:
-  version: "1.5.1"
+  version: "1.6.0"
   source: "github.com/imagewize/windfinder skills/html-page-review"
 ---
 
@@ -97,6 +97,31 @@ What the finding kinds mean, and how far to trust them:
 "Possible" findings need a second look before they become review notes. Drop the ones that are
 deliberate and consistent with the rest of the page.
 
+### Section rhythm check (measured, always)
+
+Padding at the top of a spacing scale is the most expensive class of design fix: it survives
+contrast checks and validator passes and needs a review round per shrink. Measure it; do not
+eyeball it. Both the wrapper selector and the budget come from the project when they exist — read
+its `AGENTS.md` first; its budget wins over the defaults here:
+
+- Default budget: the top and bottom paddings meeting at a section boundary stay within **112px
+  together at 1440 and 64px at 390**; a single section pads at most 80px per side unless it is a
+  hero or banner band.
+
+Measure the computed padding of the section wrappers (`--all` reports every match; on a block
+theme select the outer `alignfull` groups, on a prototype the `<section>` elements):
+
+```
+node /ABS/SKILL/DIR/measure.mjs file:///ABS/PROJECT/index.html --width 1440 --all --select 'section' --props padding-top,padding-bottom,margin-top,margin-bottom
+```
+
+Add the bottom padding of each section to the top padding of the next and compare with the budget.
+Write one note per page listing the boundary sums that exceed it, each with the two sections, the
+measured numbers, the file the padding comes from (a pattern file, a style preset) and, on a block
+theme, the spacing preset slug to drop one step. Measured sums inside the budget are "checked and
+fine"; do not flag generous whitespace that the page uses deliberately and consistently — the
+budget catches only the outliers.
+
 ## Step 2: Look at the page
 
 **Preferred: `measure.mjs --screenshot`.** One command per width gives a PNG at exactly that width,
@@ -173,7 +198,9 @@ Measurement finds faults. These need judgement; check each one:
    sections the brief asked for all there, in a sensible order? Is the tone right?
 2. **Consistency with its own system.** Every page locks a system: alignment (left or centred),
    grid, spacing scale, type scale, accent colour use. Flag what breaks it, such as a centred block
-   in a left-aligned page, an accent used for body text, or a spacing value off the scale.
+   in a left-aligned page, an accent used for body text, or a spacing value off the scale. Section
+   paddings that sit at the top of the scale and stack into 200px-plus gaps are the section rhythm
+   check in step 1 — always measured, never judged by eye.
 3. **Composition per section.** Empty areas that read as unfinished rather than calm, text
    centred vertically against a column it should align with, drawings or images that read as
    stray marks, sections with no visual weight next to dense ones.

@@ -71,6 +71,8 @@ vibe --agent wp-frontend-builder
 Then paste this prompt:
 
 ```
+Read AGENTS.md in this folder first: paths, the section rhythm budget and the tooling guardrails apply to every run in this project.
+
 Build the {{PAGE}} for {{WHAT_FOR}} as one self-contained index.html with embedded CSS.
 
 Brief:
@@ -83,6 +85,8 @@ This is a {{PAGE}}, not a landing page. Sections: {{SECTIONS}}.
 Minimal questions: state your assumptions at the top of your reply, then build.
 
 Design: load design-system-library and check the {{DESIGN_CATEGORIES}} categories for a fitting system; adapt it, never copy a brand. If none fits, load frontend-design and pick one anchor. {{FONT_AND_COLOUR_RULE}} Lock the tokens as --wp--preset--* custom properties. One <section> per future block pattern, marked with HTML comments. Mobile-first, accessible, a hamburger menu under 1024px. Run the no-ai-design-slop gate before you hand off.
+
+Checks before you report done: measure the page with html-page-review/measure.mjs at 1440 and 390 — every section boundary stays inside the rhythm budget in AGENTS.md (the two adjoining paddings together ≤ 112px at 1440, ≤ 64px at 390), one padding layer per section. A spacing value you did not measure is "expected", not a fact: report the numbers.
 ```
 
 Why it is written this way:
@@ -92,6 +96,9 @@ Why it is written this way:
   when the site cannot be fetched, and naming the traits keeps it from copying the site.
 - **Local images only:** no broken or made-up URLs, no `url()` backgrounds for the Cover block to
   untangle, and the same files go into the theme.
+- **Measured spacing:** sections that pad themselves at the top of the scale are the
+  most-expensive fix in review. The budget is checked with `measure.mjs`, not by eye, and lives in
+  the project `AGENTS.md` so later stages inherit the same numbers.
 
 Result: _not run yet._
 
@@ -182,6 +189,7 @@ Create theme-{{THEME_SLUG}}/ in this repository as a fork of ~/code/aviendha for
 - Design layer, in this order: block style variations first, then theme.json (radius, shadows, buttons, headings, links, eyebrows), then header and footer parts rebuilt from index.html (header navigation overlayMenu mobile, footer navigation never; no WooCommerce mini-cart or account blocks, no "Start a project" button), and only then the remaining gaps in one block at the end of style.css headed "/* {{NAME}} design layer */", one comment per rule naming the section. Set blogname to "{{NAME}}" with wp option update.
 - Site: {{SITE_DIR}} (Valet{{SITE_PLUGINS}}). Symlink theme-{{THEME_SLUG}}/ to wp-content/themes/{{THEME_SLUG}} and activate it. Use --path="{{SITE_DIR_ABS}}", never ~ after =.
 - README.md and readme.txt in the theme state which plugins must be installed; add the dismissible admin notice from ~/code/winespring/inc/plugin-recommendations.php.
+- AGENTS.md and CHANGELOG.md for the fork are written on creation (the docs-trio conventions in elayne-pattern-generator/references/child-theme-docs.md): the fork is an independent theme, not a child theme, so it needs its own contract and changelog, not Aviendha's. Patterns keep this repo's section rhythm budget, measured against the spacing scale the fork's theme.json defines.
 - Checks, one command per call: php -l every PHP file; composer install and vendor/bin/phpcs --standard=phpcs.xml . in theme-{{THEME_SLUG}}/; sentinel with --url https://{{SITE}}.test --user admin --pass admin after every pattern change until it passes; the aviendha grep; the aludra block-name check; the rendered front page containing a wp-block-aludra-* wrapper for every block used; screenshots of index.html and the site at 1440px and 390px, compared section by section (390px through html-page-review/frame.html, which shows the page in an iframe at the exact width; never --window-size=390, headless Chrome on macOS stops at 500px). Confirm git -C ~/code/aviendha status shows nothing new.
 - Report: the section-to-block table (block, source pattern copied, style variation), the gaps, the palette mapping, the design-layer line count, and per section what still differs from index.html.
 ```
@@ -224,9 +232,9 @@ Then paste this prompt:
 ```
 Load html-to-block-theme and work in Mode A (standalone conversion from core blocks). Read references/mobile-navigation.md before writing any file.
 
-Convert index.html into a block theme in theme-{{THEME_SLUG}}/ for {{NAME}}: theme.json v3 from the --wp--preset--* tokens in index.html, the fonts bundled as woff2 in assets/fonts/ with fontFace, one pattern per <section> with the copy verbatim, a front page template that uses them, and header and footer parts rebuilt from index.html (header navigation overlayMenu mobile, footer navigation never). Copy the images from images/ into theme-{{THEME_SLUG}}/assets/img/ and reference them with get_theme_file_uri(). Prefer core blocks; put what theme.json cannot express in one commented block in style.css.
+Convert index.html into a block theme in theme-{{THEME_SLUG}}/ for {{NAME}}: theme.json v3 from the --wp--preset--* tokens in index.html, the fonts bundled as woff2 in assets/fonts/ with fontFace, one pattern per <section> with the copy verbatim, a front page template that uses them, and header and footer parts rebuilt from index.html (header navigation overlayMenu mobile, footer navigation never). Copy the images from images/ into theme-{{THEME_SLUG}}/assets/img/ and reference them with get_theme_file_uri(). Prefer core blocks; put what theme.json cannot express in one commented block in style.css. Write the theme's AGENTS.md and CHANGELOG.md on creation (the docs-trio conventions in elayne-pattern-generator/references/child-theme-docs.md). Patterns keep index.html's section rhythm budget.
 Site: {{SITE_DIR}} (Valet). Symlink theme-{{THEME_SLUG}}/ to wp-content/themes/{{THEME_SLUG}} and activate it. Use --path="{{SITE_DIR_ABS}}", never ~ after =.
-Checks, one command per call: php -l every PHP file, WP_DEBUG with an empty debug.log, no block validation errors in the editor, screenshots of index.html and the site at 1440px and 390px compared section by section (390px through html-page-review/frame.html, which shows the page in an iframe at the exact width; never --window-size=390, headless Chrome on macOS stops at 500px), the mobile menu opened at 390px.
+Checks, one command per call: php -l every PHP file, WP_DEBUG with an empty debug.log, no block validation errors in the editor, section boundaries measured with html-page-review/measure.mjs against the budget in this repo's AGENTS.md, screenshots of index.html and the site at 1440px and 390px compared section by section (390px through html-page-review/frame.html, which shows the page in an iframe at the exact width; never --window-size=390, headless Chrome on macOS stops at 500px), the mobile menu opened at 390px.
 Report: the section-to-pattern table, the CSS line count, and per section what still differs from index.html.
 ```
 
