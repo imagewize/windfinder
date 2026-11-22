@@ -17,6 +17,7 @@ Skills run inside your project with Vibe's tools and are invoked as slash comman
 | [`/wordpress-woocommerce`](../skills/wordpress-woocommerce/SKILL.md) | WooCommerce extensions: gateways, shipping, WC CRUD, HPOS, REST/Store API, cart/checkout blocks. | mralaminahamed |
 | [`/wp-update-round`](../skills/wp-update-round/SKILL.md) | WordPress update rounds: before/after screenshots, pixel diff, human approval, production deployment for plugins/themes/core. Uses wp-ops commands. | Imagewize |
 | [`/elayne-pattern-generator`](../skills/elayne-pattern-generator/SKILL.md) | Creates, ports and audits block patterns for the Elayne theme and its child themes: reads the theme repo first, scaffolds with pt-cli, follows the colour contract, budgets section padding (a rhythm contract with measured boundary limits), runs the validation passes, and writes the docs trio for a new child-theme vertical. `scripts/screenshot.sh` re-shoots `screenshot.png` as a clean 1200x900 render with promo-text and block-error checks. | Imagewize |
+| [`/wordpress-block-layout`](../skills/wordpress-block-layout/SKILL.md) | Block layout and width rules for block themes: theme.json `contentSize`/`wideSize`, the align wide/full setting, `has-global-padding` breakout mechanics, and browser width verification at 390px/1440px. | Imagewize |
 
 ## Design & frontend
 
