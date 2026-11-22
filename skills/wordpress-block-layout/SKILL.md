@@ -4,7 +4,7 @@ description: "WordPress block layout and width rules for block themes: contentSi
 user-invocable: true
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   source: "imagewize/windfinder (authored 2026-11-22, from the Nynaeve/imagewize.com layout debugging session)"
 ---
 
@@ -43,6 +43,12 @@ Rules for custom full-width section blocks:
 - Declare `"supports": { "align": ["wide", "full"] }` and default `"align": "full"` plus a zero-margin style default in `block.json` (WP injects `margin-block-start: 24px` on constrained children otherwise).
 - Never set `width: 100%` on the block root — it defeats core's negative margins. Pad the **inner** wrapper under `.alignfull` with `var(--wp--style--root--padding-left/right)` and cap it at `var(--wp--style--global--wide-size)`.
 
+## Per-block width overrides: sometimes fine
+
+Theme defaults are the rule, but a wider setting is allowed **when it fits the block in that page or post**. The usual case is card grids (pricing tiers, feature columns): at `contentSize` 52rem, three cards are ~257px each, so a `wp:columns` row inside a full-width section may take `"align":"wide"` (wideSize), or its parent group a larger `contentSize`. Prose (headings, paragraphs, lists) stays at theme `contentSize` — a wider measure hurts readability.
+
+Always check mobile after widening anything: nested `has-global-padding` groups get their padding zeroed by core, so a wide child inside a full-bleed block can touch the screen edges. Give the parent group explicit side padding (e.g. `var:preset|spacing|40`) and verify `scrollWidth === clientWidth` at 390px, plus a 1440px look on desktop. Record what you allowed in the project's AGENTS.md with the measured numbers (e.g. "pricing-tiers columns: alignwide allowed, verified 1024px row at 1440px, no overflow at 390px/768px").
+
 ## Diagnosing "too narrow" / "not full width"
 
 1. Inspect the stored structure, not just the render: `wp eval 'foreach (parse_blocks(get_post(ID)->post_content) as $b) { echo $b["blockName"] . " align=" . json_encode($b["attrs"]["align"] ?? null) . PHP_EOL; }' --path=web/wp` — a wrapping `core/group` around a section block is the classic cause of a band that won't go full-bleed. Re-import the current draft before touching widths.
@@ -51,5 +57,5 @@ Rules for custom full-width section blocks:
 
 ## Guardrails
 
-- Don't put `alignwide`/`alignfull` on core blocks in regular page content unless the theme's CSS is built for it — on constrained pages they can touch the screen edge on mobile.
+- Don't put `alignwide`/`alignfull` on core blocks in regular page content unless the theme's CSS is built for it or the exception above applies — on constrained pages they can touch the screen edge on mobile.
 - Don't hand-edit `contentSize` per block to "fix" spacing; use theme.json, spacers, or group padding.
